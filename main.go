@@ -6,23 +6,13 @@ import (
 	"graph/pkg/mgraph"
 )
 
-type city struct {
-	name      string
-	latitude  int
-	longitude int
-}
-
-type border struct {
-	kms float64
-}
-
 func main() {
-	g := mgraph.New[city, border]()
+	g := mgraph.New()
 	v, err := g.AddVertex("node1")
 	if err != nil {
 		panic(err)
 	}
-	v.StoreData(city{})
+	v.StoreData(user{})
 	v2, err := g.AddVertex("node2")
 	if err != nil {
 		panic(err)
@@ -31,10 +21,9 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	e.StoreData(border{})
 	fmt.Printf("vertices obtenidos: %v %v\n", v, v2)
 	fmt.Printf("edge obtenido: %v\n", e)
-	g.ForEachVertex(func(v mgraph.Vertex[city]) bool {
+	g.ForEachVertex(func(v mgraph.Vertex) bool {
 		fmt.Printf("vertice recorrido: %v\n", v)
 		return true
 	})
